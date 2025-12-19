@@ -67,7 +67,7 @@
     </div>
 
     <div class="message-meta">
-        <span><strong>By:</strong> {{ object.first_name }} {{ object.middle_name }} {{ object.last_name }}</span>
+        <span><strong>By:</strong> {{ object.owner | default:"Anonymous"}}</span>
         <span><strong>Created:</strong> {{ object.date_posted | date:"Y M d H:i" }}</span>
     </div>
 
