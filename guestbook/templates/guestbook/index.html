@@ -1,0 +1,169 @@
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background-color: #f5f7fa;
+    }
+
+    h2 {
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .guest-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .guest-table th,
+    .guest-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #eaeaea;
+        vertical-align: middle;   /* FIX vertical alignment */
+        text-align: left;
+    }
+
+    .guest-table th {
+        background-color: #f0f3f7;
+        color: #34495e;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-align: left;       /* Center header text */
+    }
+
+    .guest-table td:nth-child(3),
+    .guest-table td:nth-child(4) {
+        text-align: left;       /* Center Date + Action columns */
+    }
+
+    /* Make name clickable but NOT look like a link */
+    .name-link {
+        color: #2c3e50;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .name-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Action buttons */
+    .action-links {
+        display: flex;
+        justify-content: left;
+        gap: 10px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .edit-btn {
+        background-color: #e3f2fd;
+        color: #1565c0;
+    }
+
+    .delete-btn {
+        background-color: #fdecea;
+        color: #c62828;
+    }
+
+    .edit-btn:hover {
+        background-color: #bbdefb;
+    }
+
+    .delete-btn:hover {
+        background-color: #f5c6cb;
+    }
+
+    .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding: 10px 16px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.add-btn:hover {
+    background-color: #2c3e50cc;
+    transform: translateY(-1px);
+}
+
+.add-btn:active {
+    transform: translateY(0);
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+</style>
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="header-actions">
+    <h2>Guests List:</h2>
+
+    <a href="{% url 'guestbook_add' %}" class="add-btn">
+        ➕ Add New Message
+    </a>
+</div>
+
+
+
+<table class="guest-table">
+    <tr>
+        <th>Name</th>
+        <th>Message</th>
+        <th>Date Posted</th>
+        <th>Action</th>
+    </tr>
+
+    {% for instance1 in object_list %}
+    <tr>
+        <td>
+            <a href="{% url 'guestbook_message' instance1.id %}" class="name-link">
+                {{ instance1.owner.username | default:"Anonymous"}}
+            </a>
+        </td>
+        <td>{{ instance1.message }}</td>
+        <td>{{ instance1.date_posted | date:"Y M d H:i" }}</td>
+        <td>
+            <div class="action-links">
+                <a href="{% url 'guestbook_update' instance1.id %}" class="edit-btn">✏️</a>
+                <a href="{% url 'guestbook_delete' instance1.id %}" class="delete-btn">🗑️</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+

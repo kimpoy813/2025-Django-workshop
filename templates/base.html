@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ISPSC Guestbook</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .auth-links {
+            font-size: 14px;
+        }
+
+        .auth-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 12px;
+            font-weight: bold;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content */
+        .container {
+            padding: 30px 20px;
+            min-height: 70vh;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: right;
+            padding: 10px 25px;
+            background-color: #ecf0f1;
+            font-size: 13px;
+            color: #555;
+        }
+
+        hr {
+            display: none;
+        }
+
+        .auth-links {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.auth-links span {
+    font-weight: bold;
+}
+
+.auth-links form {
+    margin: 0;
+}
+
+.auth-links button {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+}
+
+.auth-links button:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📖 ISPSC Guestbook</h1>
+
+        <div class="auth-links">
+            {% if user.is_authenticated %}
+                <span>Hello {{ user.username }}!</span>
+
+                <form method="post" action="{% url 'guestbook_logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'guestbook_login' %}">Login</a>
+                <a href="{% url 'guestbook_signup' %}">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="footer">
+        <em>© 2025 ISPSC</em>
+    </div>
+
+</body>
+</html>

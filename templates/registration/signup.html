@@ -1,0 +1,85 @@
+{% block content %}
+<style>
+    .login-wrapper {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-card {
+        margin-top: 50px;
+        width: 100%;
+        max-width: 380px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+
+    .login-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    .login-card form p {
+        margin-bottom: 15px;
+    }
+
+    .login-card label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .login-card input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .login-card input:focus {
+        outline: none;
+        border-color: #2c3e50;
+        box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.2);
+    }
+
+    .login-card button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .login-card button:hover {
+        background-color: #2c3e50cc;
+    }
+</style>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>Sign Up</h2>
+        <table>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td><button type="submit">Sign Up</button></td>
+            </tr>
+        </form>
+        </table>
+    </div>
+</div>
+{% endblock %}
